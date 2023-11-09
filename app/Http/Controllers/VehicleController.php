@@ -50,11 +50,15 @@ class VehicleController extends Controller
 
     public function delete($id)
     {
-        $vehicle = Vehicle::find($id);
+        try{
+            $vehicle = Vehicle::find($id);
 
-        $vehicle->delete();
+            $vehicle->delete();
 
-        return redirect()->route('vehicle.');
+            return redirect()->route('vehicle.');
+        }catch (\Exception $e){
+            return redirect()->route('vehicle.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+        }
     }
 
     public function csvImport(Request $request)

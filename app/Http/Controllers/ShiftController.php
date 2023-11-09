@@ -537,6 +537,18 @@ class ShiftController extends Controller
             $shift->save();
         }
 
+        // foreach ($am_project1 as $shift_id => $project_id) {
+        //     $shift = Shift::find($shift_id);
+        //     // ここで関連する中間テーブルや他のテーブルを更新するロジックを追加する必要があるかもしれません。
+        //     // 例えば、ShiftProjectモデルがある場合、それを更新するロジックを追加します。
+
+        //     // 午前の車両情報を更新
+        //     $shift->am_vehicle_id = $am_vehicle[$shift_id];
+        //     // 午後の車両情報を更新
+        //     $shift->pm_vehicle_id = $pm_vehicle[$shift_id];
+        //     $shift->save();
+        // }
+
         return redirect()->route('shift.');
     }
 

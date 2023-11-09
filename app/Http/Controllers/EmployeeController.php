@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use League\Csv\Reader;
 use League\Csv\Statement;
+use PhpParser\Node\Stmt\TryCatch;
 
 class EmployeeController extends Controller
 {
@@ -51,11 +52,16 @@ class EmployeeController extends Controller
 
     public function delete($id)
     {
-        $employee = Employee::find($id);
+        try{
+            $employee = Employee::find($id);
 
-        $employee->delete();
+            $employee->delete();
 
-        return redirect()->route('employee.');
+            return redirect()->route('employee.');
+
+        }catch (\Exception $e){
+            return redirect()->route('employee.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+        }
     }
 
 

@@ -56,11 +56,15 @@ class ProjectController extends Controller
 
     public function delete($id)
     {
-        $project = Project::find($id);
+        try{
+            $project = Project::find($id);
 
-        $project->delete();
+            $project->delete();
 
-        return redirect()->route('project.');
+            return redirect()->route('project.');
+        }catch (\Exception $e){
+            return redirect()->route('project.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+        }
     }
 
     public function csvImport(Request $request)
@@ -103,6 +107,19 @@ class ProjectController extends Controller
         $types = $request->input('type');
         $prices = $request->input('price');
 
+        $datas = ProjectEmployeePayment::where('project_id',$id)->get();
+        $isCheck = false;
+        foreach($datas as $data){
+            foreach($types as $employee_id => $type){
+                if($data->employee_id == $employee_id){
+                    $isCheck = true;
+                }
+            }
+        }
+        if($isCheck){
+            return redirect()->route('project.employeePaymentShow', ['id' => $id])->with('alert', '登録済みの従業員がいるため登録できません。登録済みの従業員は編集画面から修正してください。');
+        }
+
         // 3. 従業員ごとの支払い情報を保存
         foreach ($types as $employee_id => $type) {
             $payment = new ProjectEmployeePayment();
@@ -113,7 +130,7 @@ class ProjectController extends Controller
             $payment->save();                            // データベースに保存
         }
 
-        return redirect()->route('project.');
+        return redirect()->route('project.employeePaymentShow', ['id' => $id]);
     }
 
     public function employeePaymentEdit($id,$employeeId)

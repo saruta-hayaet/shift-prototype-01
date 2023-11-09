@@ -73,7 +73,7 @@
                                                 @endif
                                             @endfor
                                             @foreach ($vehicles as $vehicle)
-                                                @if ($vehicle->id == $row->am_vehicle_id)
+                                                @if ($vehicle->id == $row->pm_vehicle_id)
                                                     <p>NO.{{$vehicle->number}}</p>
                                                 @endif
                                             @endforeach

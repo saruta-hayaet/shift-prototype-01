@@ -407,7 +407,7 @@ th {
     position: relative;
     display: flex;
     gap: 30px;
-    min-height: 210px;
+    min-height: 260px;
 }
 .row-project{
     width: 200px;
@@ -431,7 +431,7 @@ th {
     gap: 50px;
 }
 .totalPrice{
-    min-height: 210px;
+    min-height: 260px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -607,5 +607,8 @@ th {
 .b-r{
     border-right: 1px solid black;
 }
-
+.alert{
+    margin-top: 30px;
+    color: red;
+}
 /* csv */

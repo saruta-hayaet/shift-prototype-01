@@ -7,6 +7,11 @@
 
     <div class="main">
         <p>案件名 : {{ $project->name }}</p>
+        @if (session('alert'))
+        <div class="alert alert-warning">
+            {{ session('alert') }}
+        </div>
+        @endif
 
         <form class="employeePaymentCreate" action="{{route('project.employeePaymentStore',['id'=>$project->id])}}" method="POST">
             @csrf
