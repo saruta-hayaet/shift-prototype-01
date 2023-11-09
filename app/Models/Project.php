@@ -16,8 +16,13 @@ class Project extends Model
         return $this->hasMany(ProjectEmployeePayment::class);
     }
 
+    // public function shifts()
+    // {
+    //     return $this->hasMany(Shift::class);
+    // }
     public function shifts()
     {
-        return $this->hasMany(Shift::class);
+        return $this->belongsToMany(Shift::class, 'shift_projects');
     }
+
 }

@@ -21,10 +21,16 @@ class Shift extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function shiftProjects()
+    // public function shiftProjects()
+    // {
+    //     return $this->hasMany(ShiftProject::class);
+    // }
+    public function projects()
     {
-        return $this->hasMany(ShiftProject::class);
+        return $this->belongsToMany(Project::class, 'shift_projects')
+            ->withPivot('time_of_day');
     }
+
 
     public function am_vehicle()
     {

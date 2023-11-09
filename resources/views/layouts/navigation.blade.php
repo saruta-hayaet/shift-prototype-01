@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('shift.')" :active="request()->routeIs('shift.*')">
                         {{ __('シフト') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('csv-issue.')" :active="request()->routeIs('csv-issue.*')">
+                        {{ __('CSV発行') }}
+                    </x-nav-link>
                 </div>
             </div>
 

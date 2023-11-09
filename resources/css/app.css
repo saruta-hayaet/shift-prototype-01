@@ -568,3 +568,73 @@ th {
 .csv{
     margin-top: 1rem;
 }
+.csv-head{
+    position: relative;
+    width: fit-content;
+    display: flex;
+    margin-top: 30px;
+    margin-left: -30px;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+.csv-head::after{
+    content: "";
+    position: absolute;
+    left: 150px;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+}
+.csv-head::before{
+    content: "";
+    position: absolute;
+    right: 150px;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+}
+.csv-head-txt{
+    padding: 15px 0;
+}
+.csv-tbody-wrap{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    /* gap: 30px; */
+    margin-left: -30px;
+    border-top: 1px solid black;
+}
+.csv-tbody{
+    position: relative;
+    display: flex;
+    border: 1px solid black;
+    border-top: 0px solid black;
+}
+.csv-tbody::after{
+    content: "";
+    position: absolute;
+    left: 150px;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+}
+.csv-tbody::before{
+    content: "";
+    position: absolute;
+    right: 150px;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+}
+.csv-txt-width{
+    width: 150px;
+    text-align: center;
+    padding: 15px 0;
+    /* border: 1px solid black; */
+}
+.b-l{
+    /* border-left: 1px solid black; */
+}
+
+/* csv */

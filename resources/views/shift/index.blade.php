@@ -41,12 +41,12 @@
                                             @if (isset($tmpShift[$row->id][0]))
                                                 <p>{!! implode('<br>', $tmpShift[$row->id][0]) !!}</p>
                                             @endif
-                                            @for ($i = 0; $i < 1; $i++)
+                                            @for ($i = 0; $i < 2; $i++)
                                                 @if (isset($tmpPrice[$row->id][0][$i]))
                                                     <p>上代 : {{$tmpPrice[$row->id][0][$i]}}</p>
                                                 @endif
                                             @endfor
-                                            @for ($i = 0; $i < 1; $i++)
+                                            @for ($i = 0; $i < 2; $i++)
                                                 @if (isset($tmpPrice[$row->id][0][$i]))
                                                     <p>給与 : {{$tmpEmployeePrice[$row->id][0][$i]}}</p>
                                                 @endif
@@ -57,12 +57,12 @@
                                             @if (isset($tmpShift[$row->id][1]))
                                                 <p>{!! implode('<br>', $tmpShift[$row->id][1]) !!}</p>
                                             @endif
-                                            @for ($i = 0; $i < 1; $i++)
+                                            @for ($i = 0; $i < 2; $i++)
                                                 @if (isset($tmpPrice[$row->id][1][$i]))
                                                     <p>上代 : {{$tmpPrice[$row->id][1][$i]}}</p>
                                                 @endif
                                             @endfor
-                                            @for ($i = 0; $i < 1; $i++)
+                                            @for ($i = 0; $i < 2; $i++)
                                                 @if (isset($tmpPrice[$row->id][1][$i]))
                                                     <p>給与 : {{$tmpEmployeePrice[$row->id][1][$i]}}</p>
                                                 @endif

@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\CsvIssueController;
 use App\Models\Employee;
 
 /*
@@ -79,6 +80,12 @@ Route::prefix('shift')->name('shift.')->group(function(){
     Route::post('/update', [ShiftController::class, 'update'])->name('update');
     Route::get('/project', [ShiftController::class, 'project'])->name('project');
     Route::post('/csv', [ShiftController::class, 'csvImport'])->name('csv');
+});
+
+Route::prefix('csv-issue')->name('csv-issue.')->group(function(){
+    Route::get('/',[CsvIssueController::class, 'index'])->name('');
+    Route::post('/show',[CsvIssueController::class, 'show'])->name('show');
+    Route::get('/export/{projectId}/{month}',[CsvIssueController::class, 'csvExport'])->name('export');
 });
 
 
