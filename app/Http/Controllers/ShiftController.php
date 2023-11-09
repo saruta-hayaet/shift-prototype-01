@@ -24,6 +24,7 @@ class ShiftController extends Controller
         $allShiftProject = ShiftProject::all();
         $employees = Employee::all();
         $payments = ProjectEmployeePayment::all();
+        $vehicles = Vehicle::all();
 
         $employeeList = [];
         foreach($employees as $employee){
@@ -119,7 +120,7 @@ class ShiftController extends Controller
         }
 
 
-        return view('shift.index', compact('employees','shifts','allShift','allShiftProject','tmpShift','tmpPrice','employeeList','totalPrice','tmpEmployeePrice','totalEmployeePrice'));
+        return view('shift.index', compact('employees','shifts','allShift','allShiftProject','tmpShift','tmpPrice','employeeList','totalPrice','tmpEmployeePrice','totalEmployeePrice','vehicles'));
     }
     public function projectPriceShift()
     {
@@ -419,6 +420,92 @@ class ShiftController extends Controller
         return view('shift.edit', compact('employees','shifts','allShift','allShiftProject','tmpShift','tmpId','vehicles','employeeList','projects','tmpProjectId'));
     }
 
+    // public function update(Request $request)
+    // {
+    //     // 1. 送信されるデータを取得
+    //     $am_project1 = $request->input('am_project1');
+    //     $am_project2 = $request->input('am_project2');
+    //     $pm_project1 = $request->input('pm_project1');
+    //     $pm_project2 = $request->input('pm_project2');
+    //     $am_vehicle = $request->input('am_vehicle');
+    //     $pm_vehicle = $request->input('pm_vehicle');
+
+
+    //     // 2. それぞれのシフトIDに対して、午前と午後のプロジェクトと車両の情報を更新
+    //     foreach ($am_project1 as $shift_id => $project_id) {
+    //         $shift = Shift::find($shift_id);
+    //         $shiftProject = ShiftProject::where('shift_id', $shift_id)->first();
+
+    //         foreach ($request->input('am_project1') as $shift_id => $project_id) {
+    //             $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 0)->first();
+    //             if (!$shiftProject) {
+    //                 $shiftProject = new ShiftProject();
+    //                 $shiftProject->shift_id = $shift_id;
+    //                 $shiftProject->time_of_day = 0;
+    //             }
+    //             $shiftProject->project_id = $project_id;
+    //             $shiftProject->save();
+    //         }
+
+    //         foreach ($request->input('pm_project1') as $shift_id => $project_id) {
+    //             $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 1)->first();
+    //             if (!$shiftProject) {
+    //                 $shiftProject = new ShiftProject();
+    //                 $shiftProject->shift_id = $shift_id;
+    //                 $shiftProject->time_of_day = 1;
+    //             }
+    //             $shiftProject->project_id = $project_id;
+    //             $shiftProject->save();
+    //         }
+
+    //         foreach ($request->input('am_project2') as $shift_id => $project_id) {
+    //             $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 0)->skip(1)->first();
+    //             if (!$shiftProject) {
+    //                 $shiftProject = new ShiftProject();
+    //                 $shiftProject->shift_id = $shift_id;
+    //                 $shiftProject->time_of_day = 0;
+    //             }
+    //             $shiftProject->project_id = $project_id;
+    //             $shiftProject->save();
+    //         }
+
+    //         foreach ($request->input('pm_project2') as $shift_id => $project_id) {
+    //             $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 1)->skip(1)->first();
+    //             if (!$shiftProject) {
+    //                 $shiftProject = new ShiftProject();
+    //                 $shiftProject->shift_id = $shift_id;
+    //                 $shiftProject->time_of_day = 1;
+    //             }
+    //             $shiftProject->project_id = $project_id;
+    //             $shiftProject->save();
+    //         }
+
+
+    //         // 午前の車両情報を更新
+    //         $shift->am_vehicle_id = $am_vehicle[$shift_id];
+    //         // 午後の車両情報を更新
+
+    //         $shift->pm_vehicle_id = $pm_vehicle[$shift_id];
+    //         $shift->save();
+    //     }
+
+    //         // 2. それぞれのシフトIDに対して、午前と午後のプロジェクトと車両の情報を更新
+    //     foreach ($am_project1 as $shift_id => $project_id) {
+    //         $shift = Shift::find($shift_id);
+    //         // ここで関連する中間テーブルや他のテーブルを更新するロジックを追加する必要があるかもしれません。
+    //         // 例えば、ShiftProjectモデルがある場合、それを更新するロジックを追加します。
+
+    //         // 午前の車両情報を更新
+    //         $shift->am_vehicle_id = $am_vehicle[$shift_id];
+    //         // 午後の車両情報を更新
+    //         $shift->pm_vehicle_id = $pm_vehicle[$shift_id];
+    //         $shift->save();
+    //     }
+
+    //     return redirect()->route('shift.');
+
+    // }
+
     public function update(Request $request)
     {
         // 1. 送信されるデータを取得
@@ -429,58 +516,49 @@ class ShiftController extends Controller
         $am_vehicle = $request->input('am_vehicle');
         $pm_vehicle = $request->input('pm_vehicle');
 
-
         // 2. それぞれのシフトIDに対して、午前と午後のプロジェクトと車両の情報を更新
         foreach ($am_project1 as $shift_id => $project_id) {
             $shift = Shift::find($shift_id);
-            $shiftProject = ShiftProject::where('shift_id', $shift_id)->first();
-
-            foreach ($request->input('am_project1') as $shift_id => $project_id) {
-                $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 0)->first();
-                if (!$shiftProject) {
-                    $shiftProject = new ShiftProject();
-                    $shiftProject->shift_id = $shift_id;
-                    $shiftProject->time_of_day = 0;
-                }
-                $shiftProject->project_id = $project_id;
-                $shiftProject->save();
+            if (!$shift) {
+                continue; // シフトが見つからない場合はスキップ
             }
 
-            foreach ($request->input('pm_project1') as $shift_id => $project_id) {
-                $shiftProject = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', 1)->first();
-                if (!$shiftProject) {
-                    $shiftProject = new ShiftProject();
-                    $shiftProject->shift_id = $shift_id;
-                    $shiftProject->time_of_day = 1;
-                }
-                $shiftProject->project_id = $project_id;
-                $shiftProject->save();
-            }
+            // 午前のプロジェクト情報を更新
+            $this->updateShiftProject($shift_id, $am_project1[$shift_id], 0);
+            $this->updateShiftProject($shift_id, $am_project2[$shift_id] ?? null, 0, true);
 
+            // 午後のプロジェクト情報を更新
+            $this->updateShiftProject($shift_id, $pm_project1[$shift_id], 1);
+            $this->updateShiftProject($shift_id, $pm_project2[$shift_id] ?? null, 1, true);
 
-            // 午前の車両情報を更新
-            $shift->am_vehicle_id = $am_vehicle[$shift_id];
-            // 午後の車両情報を更新
-
-            $shift->pm_vehicle_id = $pm_vehicle[$shift_id];
-            $shift->save();
-        }
-
-            // 2. それぞれのシフトIDに対して、午前と午後のプロジェクトと車両の情報を更新
-        foreach ($am_project1 as $shift_id => $project_id) {
-            $shift = Shift::find($shift_id);
-            // ここで関連する中間テーブルや他のテーブルを更新するロジックを追加する必要があるかもしれません。
-            // 例えば、ShiftProjectモデルがある場合、それを更新するロジックを追加します。
-
-            // 午前の車両情報を更新
-            $shift->am_vehicle_id = $am_vehicle[$shift_id];
-            // 午後の車両情報を更新
-            $shift->pm_vehicle_id = $pm_vehicle[$shift_id];
+            // 車両情報を更新
+            $shift->am_vehicle_id = $am_vehicle[$shift_id] ?? null;
+            $shift->pm_vehicle_id = $pm_vehicle[$shift_id] ?? null;
             $shift->save();
         }
 
         return redirect()->route('shift.');
+    }
 
+    private function updateShiftProject($shift_id, $project_id, $time_of_day, $second = false)
+    {
+        if (is_null($project_id)) {
+            return;
+        }
+
+        $query = ShiftProject::where('shift_id', $shift_id)->where('time_of_day', $time_of_day);
+        if ($second) {
+            $query->skip(1);
+        }
+        $shiftProject = $query->first();
+
+        if (!$shiftProject) {
+            $shiftProject = new ShiftProject();
+            $shiftProject->shift_id = $shift_id;
+            $shiftProject->time_of_day = $time_of_day;
+        }
+        $shiftProject->project_id = $project_id;
+        $shiftProject->save();
     }
 
     public function project()

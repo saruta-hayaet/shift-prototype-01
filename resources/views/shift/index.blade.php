@@ -51,6 +51,11 @@
                                                     <p>給与 : {{$tmpEmployeePrice[$row->id][0][$i]}}</p>
                                                 @endif
                                             @endfor
+                                            @foreach ($vehicles as $vehicle)
+                                                @if ($vehicle->id == $row->am_vehicle_id)
+                                                    <p>NO.{{$vehicle->number}}</p>
+                                                @endif
+                                            @endforeach
                                         </div>
                                         <div class="row-project">
                                             <p class="text-bold">午後</p>
@@ -67,6 +72,11 @@
                                                     <p>給与 : {{$tmpEmployeePrice[$row->id][1][$i]}}</p>
                                                 @endif
                                             @endfor
+                                            @foreach ($vehicles as $vehicle)
+                                                @if ($vehicle->id == $row->am_vehicle_id)
+                                                    <p>NO.{{$vehicle->number}}</p>
+                                                @endif
+                                            @endforeach
                                         </div>
                                     </div>
                                     <?php $count++?>

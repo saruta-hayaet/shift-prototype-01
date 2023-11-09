@@ -25,7 +25,7 @@
                 <option value="12">12</option>
             </select>
 
-            <label for="project" class="block mt-10 mb-2 text-sm font-medium text-gray-900 dark:text-white">案件を選択</label>
+            <label for="project" class="block mt-10 mb-2 text-sm font-medium text-gray-900 dark:text-white">従業員を選択</label>
             <select id="project" name="employee" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-200 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 @foreach ($employees as $employee)
                     <option value="{{$employee->id}}">{{$employee->name}}</option>

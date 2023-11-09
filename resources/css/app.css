@@ -407,7 +407,7 @@ th {
     position: relative;
     display: flex;
     gap: 30px;
-    min-height: 170px;
+    min-height: 210px;
 }
 .row-project{
     width: 200px;
@@ -431,7 +431,7 @@ th {
     gap: 50px;
 }
 .totalPrice{
-    min-height: 170px;
+    min-height: 210px;
     display: flex;
     flex-direction: column;
     gap: 20px;

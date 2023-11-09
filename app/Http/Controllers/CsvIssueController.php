@@ -101,9 +101,15 @@ class CsvIssueController extends Controller
                     if ($shift->date == $date['compare']) {
                         foreach ($shift->projects as $project) {
                             if ($project->id == $projectId && $project->pivot->time_of_day == 0) {
-                                $amName = $shift->employee->name;
+                                // $amName = $shift->employee->name;
+                                if(!is_null($shift->employee->name)){
+                                    if (!empty($amName)) {
+                                        $amName .= "\n";
+                                    }
+                                    $amName .= $shift->employee->name;
+                                }
                                 $count++;
-                                break;
+                                // break;
                             }
                         }
                     }
@@ -114,9 +120,14 @@ class CsvIssueController extends Controller
                     if ($shift->date == $date['compare']) {
                         foreach ($shift->projects as $project) {
                             if ($project->id == $projectId && $project->pivot->time_of_day == 1) {
-                                $pmName = $shift->employee->name;
+                                if(!is_null($shift->employee->name)){
+                                    if (!empty($pmName)) {
+                                        $pmName .= "\n";
+                                    }
+                                    $pmName .= $shift->employee->name;
+                                }
                                 $count++;
-                                break;
+                                // break;
                             }
                         }
                     }
