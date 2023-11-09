@@ -28,13 +28,13 @@
                 <div class="date">
                     <p class="">午前</p>
                     <select name="am_project1[{{$employee->id}}]">
-                        <option value="47">案件を選択してください</option>
+                        <option value="48">案件を選択してください</option>
                         @foreach ($projects as $project)
                         <option value="{{$project->id}}">{{$project->name}}</option>
                         @endforeach
                     </select>
                     <select name="am_project2[{{$employee->id}}]">
-                        <option value="47">案件を選択してください</option>
+                        <option value="48">案件を選択してください</option>
                         @foreach ($projects as $project)
                         <option value="{{$project->id}}">{{$project->name}}</option>
                         @endforeach
@@ -49,13 +49,13 @@
                 <div class="date">
                     <p class="">午後</p>
                     <select name="pm_project1[{{$employee->id}}]">
-                        <option value="47">案件を選択してください</option>
+                        <option value="48">案件を選択してください</option>
                         @foreach ($projects as $project)
                         <option value="{{$project->id}}">{{$project->name}}</option>
                         @endforeach
                     </select>
                     <select name="pm_project2[{{$employee->id}}]">
-                        <option value="47">案件を選択してください</option>
+                        <option value="48">案件を選択してください</option>
                         @foreach ($projects as $project)
                         <option value="{{$project->id}}">{{$project->name}}</option>
                         @endforeach
