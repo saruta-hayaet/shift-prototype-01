@@ -60,7 +60,7 @@ class EmployeeController extends Controller
             return redirect()->route('employee.');
 
         }catch (\Exception $e){
-            return redirect()->route('employee.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+            return redirect()->route('employee.')->with('alert', 'シフトに登録されている従業員は現在は削除できない仕様にしてあります。ご了承ください。');
         }
     }
 

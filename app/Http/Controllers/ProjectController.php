@@ -63,7 +63,7 @@ class ProjectController extends Controller
 
             return redirect()->route('project.');
         }catch (\Exception $e){
-            return redirect()->route('project.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+            return redirect()->route('project.')->with('alert', 'シフトに登録されている案件は、現在削除できない仕様にしてあります。ご了承ください。');
         }
     }
 

@@ -57,7 +57,7 @@ class VehicleController extends Controller
 
             return redirect()->route('vehicle.');
         }catch (\Exception $e){
-            return redirect()->route('vehicle.')->with('alert', '現在は削除できない仕様にしてあります。ご了承ください。');
+            return redirect()->route('vehicle.')->with('alert', 'シフトに登録されている車両は現在は削除できない仕様にしてあります。ご了承ください。');
         }
     }
 
