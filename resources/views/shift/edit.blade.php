@@ -31,7 +31,7 @@
                                                 <select name="am_project1[{{$row->id}}]" id="">
                                                     <option hidden value="{{$tmpProjectId[$row->id][0][0]}}">{{$tmpShift[$row->id][0][0]}}</option>
                                                     @foreach ($projects as $project)
-                                                        @if ($project->id == 47)
+                                                        @if ($project->id == 48)
                                                             <option value="{{$project->id}}">削除</option>
                                                         @else
                                                             <option value="{{$project->id}}">{{$project->name}}</option>
@@ -41,6 +41,9 @@
                                                 <select name="am_project2[{{$row->id}}]" id="">
                                                     <option hidden value="{{$tmpProjectId[$row->id][0][1]}}">{{$tmpShift[$row->id][0][1]}}</option>
                                                     @foreach ($projects as $project)
+                                                        @if ($project->id == 48)
+                                                            <option value="{{$project->id}}">削除</option>
+                                                        @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
                                                     @endforeach
                                                 </select>
@@ -68,12 +71,18 @@
                                                 <select name="pm_project1[{{$row->id}}]" id="">
                                                     <option hidden value="{{$tmpProjectId[$row->id][1][0]}}">{{$tmpShift[$row->id][1][0]}}</option>
                                                     @foreach ($projects as $project)
+                                                        @if ($project->id == 48)
+                                                            <option value="{{$project->id}}">削除</option>
+                                                        @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
                                                     @endforeach
                                                 </select>
                                                 <select name="pm_project2[{{$row->id}}]" id="">
                                                     <option hidden value="{{$tmpProjectId[$row->id][1][1]}}">{{$tmpShift[$row->id][1][1]}}</option>
                                                     @foreach ($projects as $project)
+                                                        @if ($project->id == 48)
+                                                            <option value="{{$project->id}}">削除</option>
+                                                        @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
                                                     @endforeach
                                                 </select>
