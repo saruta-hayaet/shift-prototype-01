@@ -28,7 +28,10 @@
                         {{ __('シフト') }}
                     </x-nav-link>
                     <x-nav-link :href="route('csv-issue.')" :active="request()->routeIs('csv-issue.*')">
-                        {{ __('CSV発行') }}
+                        {{ __('案件別CSV発行') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('csv-employee.')" :active="request()->routeIs('csv-employee.*')">
+                        {{ __('従業員別CSV発行') }}
                     </x-nav-link>
                 </div>
             </div>

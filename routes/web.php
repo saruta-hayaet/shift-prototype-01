@@ -88,6 +88,12 @@ Route::prefix('csv-issue')->name('csv-issue.')->group(function(){
     Route::get('/export/{projectId}/{month}',[CsvIssueController::class, 'csvExport'])->name('export');
 });
 
+Route::prefix('csv-employee')->name('csv-employee.')->group(function(){
+    Route::get('/',[CsvIssueController::class, 'employeeIndex'])->name('');
+    Route::post('/show',[CsvIssueController::class, 'employeeShow'])->name('show');
+    Route::get('/export/{employeeId}/{month}',[CsvIssueController::class, 'employeeCsvExport'])->name('export');
+});
+
 
 
 require __DIR__.'/auth.php';

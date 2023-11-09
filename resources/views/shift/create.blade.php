@@ -5,12 +5,16 @@
         </h2>
     </x-slot>
 
-    <form action="{{ route('shift.csv') }}" method="post" enctype="multipart/form-data">
+    {{-- <form action="{{ route('shift.csv') }}" method="post" enctype="multipart/form-data">
         @csrf
         <input type="file" name="csv_file">
         <button type="submit">インポート</button>
-    </form>
-
+    </form> --}}
+    @if (session('alert'))
+        <div class="alert alert-warning">
+            <p class="text-rose-600">{{ session('alert') }}</p>
+        </div>
+    @endif
     <form class="shift-table" action="{{route('shift.store')}}" method="POST">
         @csrf
         <div class="column">

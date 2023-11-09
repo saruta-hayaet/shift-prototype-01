@@ -404,6 +404,7 @@ th {
     gap: 50px;
 }
 .project-flex{
+    position: relative;
     display: flex;
     gap: 30px;
     min-height: 170px;
@@ -573,27 +574,12 @@ th {
     width: fit-content;
     display: flex;
     margin-top: 30px;
-    margin-left: -30px;
+    /* margin-left: -20px; */
     border-top: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black;
 }
-.csv-head::after{
-    content: "";
-    position: absolute;
-    left: 150px;
-    height: 100%;
-    width: 1px;
-    background-color: black;
-}
-.csv-head::before{
-    content: "";
-    position: absolute;
-    right: 150px;
-    height: 100%;
-    width: 1px;
-    background-color: black;
-}
+
 .csv-head-txt{
     padding: 15px 0;
 }
@@ -602,7 +588,7 @@ th {
     display: flex;
     flex-direction: column;
     /* gap: 30px; */
-    margin-left: -30px;
+    /* margin-left: -30px; */
     border-top: 1px solid black;
 }
 .csv-tbody{
@@ -611,30 +597,15 @@ th {
     border: 1px solid black;
     border-top: 0px solid black;
 }
-.csv-tbody::after{
-    content: "";
-    position: absolute;
-    left: 150px;
-    height: 100%;
-    width: 1px;
-    background-color: black;
-}
-.csv-tbody::before{
-    content: "";
-    position: absolute;
-    right: 150px;
-    height: 100%;
-    width: 1px;
-    background-color: black;
-}
+
 .csv-txt-width{
     width: 150px;
     text-align: center;
     padding: 15px 0;
     /* border: 1px solid black; */
 }
-.b-l{
-    /* border-left: 1px solid black; */
+.b-r{
+    border-right: 1px solid black;
 }
 
 /* csv */

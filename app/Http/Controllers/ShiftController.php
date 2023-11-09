@@ -14,6 +14,8 @@ use League\Csv\Reader;
 use League\Csv\Statement;
 use Symfony\Component\VarDumper\VarDumper;
 
+use function PHPUnit\Framework\isEmpty;
+
 class ShiftController extends Controller
 {
     public function index()
@@ -312,47 +314,51 @@ class ShiftController extends Controller
     public function store(Request $request)
     {
         $calendarDate = $request->input('calendar');
+        $shift = Shift::where('date', $calendarDate)->get();
+        if($shift->isEmpty()){
+            foreach ($request->input('employee_id') as $employeeId) {
+                // Shiftテーブルにデータを保存
+                $shift = Shift::create([
+                    'employee_id' => $employeeId,
+                    'am_vehicle_id' => $request->input("am_vehicle.{$employeeId}"),
+                    'pm_vehicle_id' => $request->input("pm_vehicle.{$employeeId}"),
+                    'date' => $calendarDate,
+                ]);
 
-        foreach ($request->input('employee_id') as $employeeId) {
-            // Shiftテーブルにデータを保存
-            $shift = Shift::create([
-                'employee_id' => $employeeId,
-                'am_vehicle_id' => $request->input("am_vehicle.{$employeeId}"),
-                'pm_vehicle_id' => $request->input("pm_vehicle.{$employeeId}"),
-                'date' => $calendarDate,
-            ]);
+                // ShiftProjectテーブルにデータを保存 (午前)
+                if ($amProject1 = $request->input("am_project1.{$employeeId}")) {
+                    ShiftProject::create([
+                        'shift_id' => $shift->id,
+                        'project_id' => $amProject1,
+                        'time_of_day' => '0', // 0:am
+                    ]);
+                }
+                if ($amProject2 = $request->input("am_project2.{$employeeId}")) {
+                    ShiftProject::create([
+                        'shift_id' => $shift->id,
+                        'project_id' => $amProject2,
+                        'time_of_day' => '0', // 0:am
+                    ]);
+                }
 
-            // ShiftProjectテーブルにデータを保存 (午前)
-            if ($amProject1 = $request->input("am_project1.{$employeeId}")) {
-                ShiftProject::create([
-                    'shift_id' => $shift->id,
-                    'project_id' => $amProject1,
-                    'time_of_day' => '0', // 0:am
-                ]);
+                // ShiftProjectテーブルにデータを保存 (午後)
+                if ($pmProject1 = $request->input("pm_project1.{$employeeId}")) {
+                    ShiftProject::create([
+                        'shift_id' => $shift->id,
+                        'project_id' => $pmProject1,
+                        'time_of_day' => '1', // 1:pm
+                    ]);
+                }
+                if ($pmProject2 = $request->input("pm_project2.{$employeeId}")) {
+                    ShiftProject::create([
+                        'shift_id' => $shift->id,
+                        'project_id' => $pmProject2,
+                        'time_of_day' => '1', // 1:pm
+                    ]);
+                }
             }
-            if ($amProject2 = $request->input("am_project2.{$employeeId}")) {
-                ShiftProject::create([
-                    'shift_id' => $shift->id,
-                    'project_id' => $amProject2,
-                    'time_of_day' => '0', // 0:am
-                ]);
-            }
-
-            // ShiftProjectテーブルにデータを保存 (午後)
-            if ($pmProject1 = $request->input("pm_project1.{$employeeId}")) {
-                ShiftProject::create([
-                    'shift_id' => $shift->id,
-                    'project_id' => $pmProject1,
-                    'time_of_day' => '1', // 1:pm
-                ]);
-            }
-            if ($pmProject2 = $request->input("pm_project2.{$employeeId}")) {
-                ShiftProject::create([
-                    'shift_id' => $shift->id,
-                    'project_id' => $pmProject2,
-                    'time_of_day' => '1', // 1:pm
-                ]);
-            }
+        }else{
+            return redirect()->route('shift.create')->with('alert', '指定されている日付は登録済みです。編集画面から変更してください');
         }
 
         return redirect()->route('shift.');
@@ -423,6 +429,7 @@ class ShiftController extends Controller
         $am_vehicle = $request->input('am_vehicle');
         $pm_vehicle = $request->input('pm_vehicle');
 
+
         // 2. それぞれのシフトIDに対して、午前と午後のプロジェクトと車両の情報を更新
         foreach ($am_project1 as $shift_id => $project_id) {
             $shift = Shift::find($shift_id);
@@ -449,6 +456,7 @@ class ShiftController extends Controller
                 $shiftProject->project_id = $project_id;
                 $shiftProject->save();
             }
+
 
             // 午前の車両情報を更新
             $shift->am_vehicle_id = $am_vehicle[$shift_id];
