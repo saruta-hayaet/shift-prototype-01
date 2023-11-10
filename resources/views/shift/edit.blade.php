@@ -45,6 +45,7 @@
                                                             <option value="{{$project->id}}">削除</option>
                                                         @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <?php
@@ -75,15 +76,17 @@
                                                             <option value="{{$project->id}}">削除</option>
                                                         @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <select name="pm_project2[{{$row->id}}]" id="">
                                                     <option hidden value="{{$tmpProjectId[$row->id][1][1]}}">{{$tmpShift[$row->id][1][1]}}</option>
                                                     @foreach ($projects as $project)
-                                                        @if ($project->id == 48)
+                                                    @if ($project->id == 48)
                                                             <option value="{{$project->id}}">削除</option>
                                                         @else
                                                         <option value="{{$project->id}}">{{$project->name}}</option>
+                                                        @endif
                                                     @endforeach
                                                 </select>
                                                 <?php
